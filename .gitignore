@@ -1,0 +1,11 @@
+.env
+state.json
+state.json.bak
+state.json.tmp
+urls.txt
+__pycache__/
+*.pyc
+.venv/
+venv/
+plan.md
+

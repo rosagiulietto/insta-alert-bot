@@ -1,0 +1,27 @@
+[Unit]
+Description=Insta Alert Bot (notifiche Telegram sui nuovi post Instagram)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# utente dedicato, creato con: sudo useradd --system --home /opt/insta-alert-bot instabot
+User=instabot
+Group=instabot
+WorkingDirectory=/opt/insta-alert-bot
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/insta-alert-bot/.venv/bin/python /opt/insta-alert-bot/bot.py
+Restart=always
+RestartSec=30
+# se il bot muore 10 volte in 10 minuti, smetti di riavviarlo (evita loop)
+StartLimitIntervalSec=600
+StartLimitBurst=10
+
+# hardening di base
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
